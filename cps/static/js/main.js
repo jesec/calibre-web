@@ -77,6 +77,25 @@ $(function() {
         layoutMode : "fitRows"
     });
 
+    function initLazyLoad() {
+        $("img.lazy").each(function() {
+            var $this = $(this).one("unveil", function() {
+                this.$loader = $("<span/>", {
+                    class: "glyphicon glyphicon-refresh glyphicon-refresh-animate loader"
+                });
+                $this.closest(".has-loader").prepend(this.$loader);
+            });
+        }).unveil(200, function() {
+            var $this = $(this).on("load", function() {
+                this.$loader.remove();
+                $this.closest(".has-loader").removeClass("has-loader");
+                $this.removeClass("lazy-not-loaded");
+            });
+        });
+    }
+
+    initLazyLoad();
+
     var $loadMore = $(".load-more .row").infiniteScroll({
         debug: false,
         // selector for the paged navigation (it will be hidden)
@@ -89,6 +108,8 @@ $(function() {
     $loadMore.on( "append.infiniteScroll", function( event, response, path, data ) {
         $(".pagination").addClass("hidden");
         $(".load-more .row").isotope( "appended", $(data), null );
+
+        initLazyLoad();
     });
 
     $("#restart").click(function() {
