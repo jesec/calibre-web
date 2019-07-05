@@ -101,7 +101,7 @@ class server:
                 http_server = HTTPServer(WSGIContainer(web.app),
                             max_buffer_size = 209700000,
                             ssl_options=ssl)
-                http_server.listen(web.ub.config.config_port)
+                http_server.listen(web.ub.config.config_port, address="127.0.0.1")
                 self.wsgiserver=IOLoop.instance()
                 web.py3_gevent_link = self.wsgiserver
                 self.wsgiserver.start()
