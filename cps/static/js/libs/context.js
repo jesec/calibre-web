@@ -52,8 +52,8 @@
     horizontal_axis = intent.responsive({
       ID:'width',
       contexts: [
-        {name:'standard', min:840}, 
-        {name:'tablet', min:510},
+        {name:'standard', min:768}, 
+        {name:'tablet', min:768},
         {name:'mobile', min:0}],
       // compare the return value of the callback to each context
       // return true for a match

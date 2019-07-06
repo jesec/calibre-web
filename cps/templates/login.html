@@ -23,6 +23,11 @@
     {% endif %}
   </form>
 </div>
+{% if g.allow_registration %}
+<div class="well col-sm-6 col-sm-offset-2">
+  <h4 style="margin-top: 0;margin-bottom: 0;">Or, <a href="{{url_for('register')}}">create an account</a></h4>
+</div>
+{% endif %}
   {% if error %}
   <div class="col-sm-6 col-sm-offset-2">
     <div class="alert alert-danger">{{error}}</div>

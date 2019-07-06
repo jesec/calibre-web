@@ -90,6 +90,8 @@ $(function() {
                 this.$loader.remove();
                 $this.closest(".has-loader").removeClass("has-loader");
                 $this.removeClass("lazy-not-loaded");
+                var maxWidth = $this.width() + 12;
+                $(".meta", $this.closest(".book")).css("max-width", maxWidth+"px")
             });
         });
     }

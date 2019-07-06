@@ -24,7 +24,7 @@
       </div>
       <div class="meta">
         <a href="{{ url_for('show_book', book_id=entry.id) }}" data-toggle="modal" data-target="#bookDetailsModal" data-remote="false">
-          <p class="title">{{entry.title|shortentitle}}</p>
+          <p class="title text-primary">{{entry.title|shortentitle}}</p>
         </a>
         <p class="author">
           {% for author in entry.authors %}
