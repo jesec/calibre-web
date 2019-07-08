@@ -1153,6 +1153,33 @@ def get_series_json():
         json_dumps = json.dumps([dict(name=r.name) for r in entries])
         return json_dumps
 
+@app.route("/get_titles_json", methods=['GET', 'POST'])
+@login_required_if_no_ano
+def get_titles_json():
+    if request.method == "GET":
+        query = request.args.get('q')
+        if query == "":
+            return ""
+        books = db.session.query(db.Books)
+        db.session.connection().connection.connection.create_function("lower", 1, db.lcase)
+        entries = books.filter(db.func.lower(db.Books.title).ilike("%" + query + "%"))
+        json_dumps = json.dumps([dict(name=r.title) for r in entries])
+        return json_dumps
+
+@app.route("/get_query_json", methods=['GET', 'POST'])
+@login_required_if_no_ano
+def get_query_json():
+    if request.method == "GET":
+        query = request.args.get('q')
+        if query == "":
+            return ""
+        books = db.session.query(db.Books)
+        db.session.connection().connection.connection.create_function("lower", 1, db.lcase)
+        entries_titles = books.filter(db.func.lower(db.Books.title).ilike("%" + query + "%"))
+        entries_authors = db.session.query(db.Authors).filter(db.func.lower(db.Authors.name).ilike("%" + query + "%")).all()
+        d = [dict(name=r.title) for r in entries_titles] + [dict(name=r.name.replace('|',',')) for r in entries_authors]
+        json_dumps = json.dumps(d)
+        return json_dumps
 
 @app.route("/get_matching_tags", methods=['GET', 'POST'])
 @login_required_if_no_ano

@@ -5,7 +5,7 @@
   <form role="form" id="search" action="{{ url_for('advanced_search') }}" method="GET">
     <div class="form-group">
       <label for="book_title">{{_('Book Title')}}</label>
-      <input type="text" class="form-control" name="book_title" id="book_title" value="">
+      <input type="text" class="form-control typeahead" name="book_title" id="book_title" value="" autocomplete="off">
     </div>
     <div class="form-group">
       <label for="bookAuthor">{{_('Author')}}</label>
@@ -164,12 +164,9 @@
 <script src="{{ url_for('static', filename='js/libs/bootstrap-datepicker/locales/bootstrap-datepicker.' + g.user.locale + '.min.js') }}" charset="UTF-8"></script>
 {% endif %}
 <script src="{{ url_for('static', filename='js/libs/bootstrap-rating-input.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/libs/typeahead.bundle.js') }}"></script>
-<script src="{{ url_for('static', filename='js/edit_books.js') }}"></script>
 <script>
 </script>
 {% endblock %}
 {% block header %}
-<link href="{{ url_for('static', filename='css/libs/typeahead.css') }}" rel="stylesheet" media="screen">
 <link href="{{ url_for('static', filename='css/libs/bootstrap-datepicker3.min.css') }}" rel="stylesheet" media="screen">
 {% endblock %}

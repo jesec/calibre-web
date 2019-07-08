@@ -151,18 +151,57 @@ input.pill:not(:checked) + label .glyphicon {
     overflow-y: auto;
 }
 
+.glyphicon {
+  top: 1.5px;
+}
+
+.form-control {
+  background-color: #000;
+}
+
+.twitter-typeahead .tt-hint {
+  color: #333 !important;
+}
+
+.tt-dropdown-menu {
+  background-color: #000 !important;
+  border: 1px solid #888888 !important;
+}
+
+.tt-dropdown-menu .tt-suggestion {
+  color: #888888 !important;
+}
+
+.tt-dropdown-menu .tt-suggestion.tt-cursor {
+  background-color: #fff !important;
+  color: #333 !important;
+}
+
+.tt-dropdown-menu .tt-suggestion.tt-cursor a {
+  color: #333 !important;
+}
+
+.tt-dropdown-menu .tt-suggestion p .tt-highlight {
+  color: #ccc !important;
+}
+.tt-dropdown-menu .tt-suggestion.tt-cursor p .tt-highlight {
+  color: #000 !important;
+}
+
 @media (min-width: 768px) {
 #navbar-collapse-useronly { display: none !important}
 }
 
 @media (max-width: 768px) {
+  .navbar-header {
+    line-height: 0px;
+  }
   .navbar-brand {
     text-align: center;
     float: none;
     display: block;
   }
   .navbar-toggle {
-    border-color: transparent !important;
     position: absolute;
     margin-left: 15px;
   }

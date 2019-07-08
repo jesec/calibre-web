@@ -110,7 +110,6 @@ var series = new Bloodhound({
     }
 });
 
-
 var tags = new Bloodhound({
     name: "tags",
     datumTokenizer: function datumTokenizer(datum) {
@@ -150,6 +149,38 @@ var publishers = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
         url: getPath() + "/get_publishers_json?q=%QUERY"
+    }
+});
+
+var book_title = new Bloodhound({
+    name: "book_title",
+    datumTokenizer: function datumTokenizer(datum) {
+        return [datum.name];
+    },
+    queryTokenizer: function queryTokenizer(query) {
+        return [query];
+    },
+    remote: {
+        url: getPath() + "/get_titles_json?q=",
+        replace: function replace(url, query) {
+            return url + encodeURIComponent(query);
+        }
+    }
+});
+
+var query = new Bloodhound({
+    name: "query",
+    datumTokenizer: function datumTokenizer(datum) {
+        return [datum.name];
+    },
+    queryTokenizer: function queryTokenizer(query) {
+        return [query];
+    },
+    remote: {
+        url: getPath() + "/get_query_json?q=",
+        replace: function replace(url, query) {
+            return url + encodeURIComponent(query);
+        }
     }
 });
 
@@ -245,6 +276,34 @@ promisePublishers.done(function() {
             name: "publishers",
             displayKey: "name",
             source: publishers.ttAdapter()
+        }
+    );
+});
+
+var promiseBook_title = book_title.initialize();
+promiseBook_title.done(function() {
+    $("#book_title").typeahead(
+        {
+            highlight: true, minLength: 0,
+            hint: true
+        }, {
+            name: "book_title",
+            displayKey: "name",
+            source: book_title.ttAdapter()
+        }
+    );
+});
+
+var promiseQuery = query.initialize();
+promiseQuery.done(function() {
+    $("#query").typeahead(
+        {
+            highlight: true, minLength: 0,
+            hint: true
+        }, {
+            name: "query",
+            displayKey: "name",
+            source: query.ttAdapter()
         }
     );
 });
