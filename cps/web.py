@@ -32,7 +32,6 @@ from werkzeug import __version__ as werkzeugVersion
 from werkzeug.exceptions import default_exceptions
 
 from jinja2 import __version__  as jinja2Version
-import cache_buster
 import ub
 from ub import config
 import helper
@@ -171,7 +170,6 @@ for ex in default_exceptions:
         app.register_error_handler(ex, error_http)
 
 app.wsgi_app = ReverseProxied(app.wsgi_app)
-cache_buster.init_cache_busting(app)
 
 formatter = logging.Formatter(
     "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
@@ -1175,9 +1173,10 @@ def get_query_json():
             return ""
         books = db.session.query(db.Books)
         db.session.connection().connection.connection.create_function("lower", 1, db.lcase)
-        entries_titles = books.filter(db.func.lower(db.Books.title).ilike("%" + query + "%"))
+        entries_titles = books.filter(db.func.lower(db.Books.title).ilike("%" + query + "%")).filter(not_(db.Books.series.any()))
+        entries_series = db.session.query(db.Series).filter(db.func.lower(db.Series.name).ilike("%" + query + "%")).all()
         entries_authors = db.session.query(db.Authors).filter(db.func.lower(db.Authors.name).ilike("%" + query + "%")).all()
-        d = [dict(name=r.title) for r in entries_titles] + [dict(name=r.name.replace('|',',')) for r in entries_authors]
+        d = [dict(name=r.title) for r in entries_titles] + [dict(name=r.name) for r in entries_series] + [dict(name=r.name.replace('|',',')) for r in entries_authors]
         json_dumps = json.dumps(d)
         return json_dumps
 

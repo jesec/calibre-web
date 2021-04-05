@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");/*!
+@font-face{font-family:Roboto;font-style:normal;font-weight:400;src:local('Roboto'),local('Roboto-Regular'),url(fonts/roboto-400.ttf) format('truetype')}@font-face{font-family:Roboto;font-style:normal;font-weight:700;src:local('Roboto Bold'),local('Roboto-Bold'),url(fonts/roboto-700.ttf) format('truetype')}
+/*!
  * bootswatch v3.4.1
  * Homepage: http://bootswatch.com
  * Copyright 2012-2019 Thomas Park

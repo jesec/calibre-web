@@ -155,6 +155,10 @@ input.pill:not(:checked) + label .glyphicon {
   top: 1.5px;
 }
 
+#scnd-nav:not(.intent-loaded) {
+  display: none;
+}
+
 .form-control {
   background-color: #000;
 }
